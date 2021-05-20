@@ -1,8 +1,27 @@
 # react-native-stack-flash-message
 
-Stack flash message component for React Native
+React Native 를 위한 Stack Flash Message 컴포넌트
+
+## Features
+
+- 하나의 플래시 메세지 컴포넌트를 모든 컴포넌트들에서 호출할 수 있습니다
+- 쌓이는 플래쉬 메세지를 보여줍니다
+- 사용자에게 시스템 메세지를 여러 개 보여줄 수 있습니다
+- 메세지 내의 아이콘을 설정할 수 있고, 메세지의 테마를 지정할 수 있습니다
+
+## Demo
+
+| iOS | Android |
+| --- | --- |
+| ![iOS Demo](https://user-images.githubusercontent.com/23352881/118910930-4628a580-b960-11eb-9394-cf59bf810678.gif) | ![Android Demo](https://user-images.githubusercontent.com/23352881/118910922-43c64b80-b960-11eb-92af-93d638383fad.gif) |
 
 ## Installation
+
+```sh
+yarn add react-native-stack-flash-message
+```
+
+또는
 
 ```sh
 npm install react-native-stack-flash-message
@@ -11,12 +30,70 @@ npm install react-native-stack-flash-message
 ## Usage
 
 ```js
-import StackFlashMessage from "react-native-stack-flash-message";
-
 // ...
+import StackFlashMessage from 'react-native-stack-flash-message';
 
-const result = await StackFlashMessage.multiply(3, 7);
+const App: React.FC = () => {
+  const flash = (options: Options) => {
+    StackFlashMessageViewManager.show(options);
+  };
+  const successFlash = () => {
+    flash({
+      type: 'success',
+      title: '안녕!',
+      contents: '이 곳에 내용을 입력해봐!',
+      duration: Math.random() * 1000,
+    });
+  };
+  const infoFlash = () => {
+    flash({
+      type: 'info',
+      title: '안녕!',
+      contents: '이 곳에 내용을 입력해봐!',
+    });
+  };
+  const errorFlash = () => {
+    flash({
+      type: 'error',
+      title: '안녕!',
+      contents: '이 곳에 내용을 입력해봐!',
+    });
+  };
+
+  return (
+    <SafeAreaView>
+      <StackFlashMessageViewManager
+        ref={(ref) => StackFlashMessageViewManager.setRef(ref)}
+      />
+
+      <TouchableOpacity onPress={successFlash}>
+        <Text>Success 플래시 메세지</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity onPress={infoFlash}>
+        <Text>Info 플래시 메세지</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity onPress={errorFlash}>
+        <Text>Error 플래시 메세지</Text>
+      </TouchableOpacity>
+    </SafeAreaView>
+  );
+};
 ```
+
+### Props
+
+| 이름 | 기본값 | 설명 |
+| --- | --- | --- |
+| `containerStyles?: ViewStyle` | `undefined` | 메세지들을 감싸고 있는 Node의 스타일 |
+| `contentsWrapperStyles?: ViewStyle` | `undefined` | 제목 및 설명을 감싸고 있는 Node의 스타일 |
+| `titleStyles?: TextStyle` | `undefined` | 제목의 스타일 |
+| `contentsStyles?: TextStyle` | `undefined` | 설명의 스타일 |
+| `titleComponent?: ElementType` | `Text` | 제목 컴포넌트 |
+| `contentsComponent?: ElementType` | `Text` | 설명 컴포넌트 |
+| `theme?: { success: string, info: string, error: string }` | `{ success: 'blue', info: 'green', error: 'red' }` | 메세지들의 테마 |
+| `icon?: { success: ReactNode, info: ReactNode, error: ReactNode }` | `{ success: Image 컴포넌트, info: Image 컴포넌트, error: Image 컴포넌트 }` | 테마별 메세지의 아이콘 |
 
 ## Contributing
 

@@ -1,6 +1,6 @@
 {
   "name": "react-native-stack-flash-message",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Stack flash message component for React Native",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
@@ -149,5 +149,8 @@
         }
       ]
     ]
+  },
+  "dependencies": {
+    "react-native-status-bar-height": "^2.6.0"
   }
 }
