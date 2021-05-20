@@ -1,6 +1,6 @@
 {
   "name": "react-native-stack-flash-message",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Stack flash message component for React Native",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
