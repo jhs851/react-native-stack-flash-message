@@ -3,7 +3,7 @@ import {
   Image,
   StyleSheet,
   Text,
-  TextStyle,
+  TextProps,
   View,
   ViewStyle,
 } from 'react-native';
@@ -25,8 +25,8 @@ export type Icon = {
 export type Props = {
   containerStyles?: ViewStyle;
   contentsWrapperStyles?: ViewStyle;
-  titleStyles?: TextStyle;
-  contentsStyles?: TextStyle;
+  titleProps?: TextProps & { [key: string]: any };
+  contentsProps?: TextProps & { [key: string]: any };
   titleComponent: ElementType;
   contentsComponent: ElementType;
   theme: Theme;
@@ -128,8 +128,8 @@ class StackFlashMessage extends React.Component<Props, S> {
             icons={this.props.icons}
             removeStack={this.removeStack.bind(this)}
             contentsWrapperStyles={this.props.contentsWrapperStyles}
-            titleStyles={this.props.titleStyles}
-            contentsStyles={this.props.contentsStyles}
+            titleProps={this.props.titleProps}
+            contentsProps={this.props.contentsProps}
             titleComponent={this.props.titleComponent}
             contentsComponent={this.props.contentsComponent}
           />

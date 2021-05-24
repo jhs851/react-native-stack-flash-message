@@ -88,8 +88,8 @@ const App: React.FC = () => {
 | --- | --- | --- |
 | `containerStyles?: ViewStyle` | `undefined` | 메세지들을 감싸고 있는 Node의 스타일 |
 | `contentsWrapperStyles?: ViewStyle` | `undefined` | 제목 및 설명을 감싸고 있는 Node의 스타일 |
-| `titleStyles?: TextStyle` | `undefined` | 제목의 스타일 |
-| `contentsStyles?: TextStyle` | `undefined` | 설명의 스타일 |
+| `titleProps?: TextProps & { [key: string]: any }` | `undefined` | 제목의 props |
+| `contentsProps?: TextProps & { [key: string]: any }` | `undefined` | 설명의 props |
 | `titleComponent?: ElementType` | `Text` | 제목 컴포넌트 |
 | `contentsComponent?: ElementType` | `Text` | 설명 컴포넌트 |
 | `theme?: { success: string, info: string, error: string }` | `{ success: 'blue', info: 'green', error: 'red' }` | 메세지들의 테마 |

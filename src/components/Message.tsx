@@ -2,7 +2,7 @@ import React, { createElement, ElementType } from 'react';
 import {
   Animated,
   StyleSheet,
-  TextStyle,
+  TextProps,
   TouchableOpacity,
   View,
   ViewStyle,
@@ -17,8 +17,8 @@ type P = {
   titleComponent: ElementType;
   contentsComponent: ElementType;
   contentsWrapperStyles?: ViewStyle;
-  titleStyles?: TextStyle;
-  contentsStyles?: TextStyle;
+  titleProps?: TextProps & { [key: string]: any };
+  contentsProps?: TextProps & { [key: string]: any };
 };
 
 type S = {
@@ -71,8 +71,8 @@ class Message extends React.Component<P, S> {
   render() {
     const {
       stack,
-      titleStyles,
-      contentsStyles,
+      titleProps,
+      contentsProps,
       titleComponent,
       contentsComponent,
     } = this.props;
@@ -105,13 +105,19 @@ class Message extends React.Component<P, S> {
             >
               {createElement(
                 titleComponent,
-                { style: [styles.title, titleStyles] },
+                {
+                  ...titleProps,
+                  style: [styles.title, titleProps?.style],
+                },
                 stack.title
               )}
 
               {createElement(
                 contentsComponent,
-                { style: [styles.contents, contentsStyles] },
+                {
+                  ...contentsProps,
+                  style: [styles.contents, contentsProps?.style],
+                },
                 stack.contents
               )}
             </View>
