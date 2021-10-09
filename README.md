@@ -35,7 +35,7 @@ import StackFlashMessage from 'react-native-stack-flash-message';
 
 const App: React.FC = () => {
   const flash = (options: Options) => {
-    StackFlashMessageViewManager.show(options);
+    StackFlashMessage.show(options);
   };
   const successFlash = () => {
     flash({
@@ -62,8 +62,8 @@ const App: React.FC = () => {
 
   return (
     <SafeAreaView>
-      <StackFlashMessageViewManager
-        ref={(ref) => StackFlashMessageViewManager.setRef(ref)}
+      <StackFlashMessage
+        ref={(ref) => StackFlashMessage.setRef(ref)}
       />
 
       <TouchableOpacity onPress={successFlash}>
