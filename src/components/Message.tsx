@@ -16,7 +16,9 @@ type P = {
   removeStack: (stack: Stack) => void;
   titleComponent: ElementType;
   contentsComponent: ElementType;
-  contentsWrapperStyles?: ViewStyle;
+  messageContainerStyle?: ViewStyle;
+  messageWrapperStyle?: ViewStyle;
+  contentsWrapperStyle?: ViewStyle;
   titleProps?: TextProps & { [key: string]: any };
   contentsProps?: TextProps & { [key: string]: any };
 };
@@ -80,10 +82,11 @@ class Message extends React.Component<P, S> {
     const icon = this.props.icons[stack.type];
 
     return (
-      <View style={styles.container}>
+      <View style={[styles.container, this.props.messageContainerStyle]}>
         <Animated.View
           style={[
             styles.wrapper,
+            this.props.messageWrapperStyle,
             {
               opacity: this.state.containerAnimated,
               marginTop: this.state.containerAnimated.interpolate({
@@ -101,7 +104,7 @@ class Message extends React.Component<P, S> {
             {!!icon && <View style={styles.iconWrapper}>{icon}</View>}
 
             <View
-              style={[styles.contentsWrapper, this.props.contentsWrapperStyles]}
+              style={[styles.contentsWrapper, this.props.contentsWrapperStyle]}
             >
               {createElement(
                 titleComponent,

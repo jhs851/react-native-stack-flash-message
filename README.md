@@ -86,8 +86,10 @@ const App: React.FC = () => {
 
 | 이름 | 기본값 | 설명 |
 | --- | --- | --- |
-| `containerStyles?: ViewStyle` | `undefined` | 메세지들을 감싸고 있는 Node의 스타일 |
-| `contentsWrapperStyles?: ViewStyle` | `undefined` | 제목 및 설명을 감싸고 있는 Node의 스타일 |
+| `containerStyle?: ViewStyle` | `undefined` | 메세지들을 감싸고 있는 Node의 스타일 |
+| `messageContainerStyle?: ViewStyle` | `undefined` | 메세지 전체를 감싸고 있는 Node의 스타일 |
+| `messageWrapperStyle?: ViewStyle` | `undefined` | 메세지를 감싸고 있는 Node의 스타일 |
+| `contentsWrapperStyle?: ViewStyle` | `undefined` | 제목 및 설명을 감싸고 있는 Node의 스타일 |
 | `titleProps?: TextProps & { [key: string]: any }` | `undefined` | 제목의 props |
 | `contentsProps?: TextProps & { [key: string]: any }` | `undefined` | 설명의 props |
 | `titleComponent?: ElementType` | `Text` | 제목 컴포넌트 |

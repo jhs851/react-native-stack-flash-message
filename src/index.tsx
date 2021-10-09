@@ -23,8 +23,10 @@ export type Icon = {
 };
 
 export type Props = {
-  containerStyles?: ViewStyle;
-  contentsWrapperStyles?: ViewStyle;
+  containerStyle?: ViewStyle;
+  messageContainerStyle?: ViewStyle;
+  messageWrapperStyle?: ViewStyle;
+  contentsWrapperStyle?: ViewStyle;
   titleProps?: TextProps & { [key: string]: any };
   contentsProps?: TextProps & { [key: string]: any };
   titleComponent: ElementType;
@@ -119,7 +121,7 @@ class StackFlashMessage extends React.Component<Props, S> {
 
   render() {
     return (
-      <View style={[styles.container, this.props.containerStyles]}>
+      <View style={[styles.container, this.props.containerStyle]}>
         {this.state.stacks.map((stack) => (
           <Message
             key={stack.id}
@@ -127,7 +129,9 @@ class StackFlashMessage extends React.Component<Props, S> {
             theme={this.props.theme}
             icons={this.props.icons}
             removeStack={this.removeStack.bind(this)}
-            contentsWrapperStyles={this.props.contentsWrapperStyles}
+            messageContainerStyle={this.props.messageContainerStyle}
+            messageWrapperStyle={this.props.messageWrapperStyle}
+            contentsWrapperStyle={this.props.contentsWrapperStyle}
             titleProps={this.props.titleProps}
             contentsProps={this.props.contentsProps}
             titleComponent={this.props.titleComponent}
