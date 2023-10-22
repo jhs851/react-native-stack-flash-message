@@ -10,10 +10,15 @@ import {
 import { getStatusBarHeight } from 'react-native-status-bar-height';
 import Message from './components/Message';
 
+export type ColorScheme = {
+  color: string;
+  backgroundColor: string;
+};
+
 export type Theme = {
-  success: string;
-  info: string;
-  error: string;
+  success: ColorScheme;
+  info: ColorScheme;
+  error: ColorScheme;
 };
 
 export type Icon = {
@@ -26,6 +31,7 @@ export type Props = {
   containerStyle?: ViewStyle;
   messageContainerStyle?: ViewStyle;
   messageWrapperStyle?: ViewStyle;
+  messageStyle?: ViewStyle;
   contentsWrapperStyle?: ViewStyle;
   titleProps?: TextProps & { [key: string]: any };
   contentsProps?: TextProps & { [key: string]: any };
@@ -33,6 +39,7 @@ export type Props = {
   contentsComponent: ElementType;
   theme: Theme;
   icons: Icon;
+  visibleProgress: boolean;
 };
 
 export type Type = 'success' | 'info' | 'error';
@@ -59,9 +66,18 @@ type S = {
 class StackFlashMessage extends React.Component<Props, S> {
   static defaultProps: Props = {
     theme: {
-      success: 'blue',
-      info: 'green',
-      error: 'red',
+      success: {
+        color: 'blue',
+        backgroundColor: 'white',
+      },
+      info: {
+        color: 'green',
+        backgroundColor: 'white',
+      },
+      error: {
+        color: 'red',
+        backgroundColor: 'white',
+      },
     },
     icons: {
       success: (
@@ -85,6 +101,7 @@ class StackFlashMessage extends React.Component<Props, S> {
     },
     titleComponent: Text,
     contentsComponent: Text,
+    visibleProgress: true,
   };
 
   static _ref: StackFlashMessage | null = null;
@@ -131,11 +148,13 @@ class StackFlashMessage extends React.Component<Props, S> {
             removeStack={this.removeStack.bind(this)}
             messageContainerStyle={this.props.messageContainerStyle}
             messageWrapperStyle={this.props.messageWrapperStyle}
+            messageStyle={this.props.messageStyle}
             contentsWrapperStyle={this.props.contentsWrapperStyle}
             titleProps={this.props.titleProps}
             contentsProps={this.props.contentsProps}
             titleComponent={this.props.titleComponent}
             contentsComponent={this.props.contentsComponent}
+            visibleProgress={this.props.visibleProgress}
           />
         ))}
       </View>

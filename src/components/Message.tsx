@@ -7,7 +7,12 @@ import {
   View,
   ViewStyle,
 } from 'react-native';
-import type { Icon, Stack, Theme } from 'react-native-stack-flash-message';
+import type {
+  ColorScheme,
+  Icon,
+  Stack,
+  Theme,
+} from 'react-native-stack-flash-message';
 
 type P = {
   stack: Stack;
@@ -16,8 +21,10 @@ type P = {
   removeStack: (stack: Stack) => void;
   titleComponent: ElementType;
   contentsComponent: ElementType;
+  visibleProgress: boolean;
   messageContainerStyle?: ViewStyle;
   messageWrapperStyle?: ViewStyle;
+  messageStyle?: ViewStyle;
   contentsWrapperStyle?: ViewStyle;
   titleProps?: TextProps & { [key: string]: any };
   contentsProps?: TextProps & { [key: string]: any };
@@ -85,7 +92,7 @@ class Message extends React.Component<P, S> {
       <View style={[styles.container, this.props.messageContainerStyle]}>
         <Animated.View
           style={[
-            styles.wrapper,
+            wrapperStyles(theme),
             this.props.messageWrapperStyle,
             {
               opacity: this.state.containerAnimated,
@@ -98,7 +105,7 @@ class Message extends React.Component<P, S> {
         >
           <TouchableOpacity
             onPress={this.hide.bind(this)}
-            style={messageStyles(theme)}
+            style={[messageStyles(theme), this.props.messageStyle]}
             disabled={this.state.progressing}
           >
             {!!icon && <View style={styles.iconWrapper}>{icon}</View>}
@@ -126,17 +133,19 @@ class Message extends React.Component<P, S> {
             </View>
           </TouchableOpacity>
 
-          <Animated.View
-            style={[
-              progressStyles(theme),
-              {
-                right: this.state.progressAnimated.interpolate({
-                  inputRange: [0, 1],
-                  outputRange: ['0%', '100%'],
-                }),
-              },
-            ]}
-          />
+          {this.props.visibleProgress && (
+            <Animated.View
+              style={[
+                progressStyles(theme),
+                {
+                  right: this.state.progressAnimated.interpolate({
+                    inputRange: [0, 1],
+                    outputRange: ['0%', '100%'],
+                  }),
+                },
+              ]}
+            />
+          )}
         </Animated.View>
       </View>
     );
@@ -144,18 +153,17 @@ class Message extends React.Component<P, S> {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.2,
-    shadowRadius: 1.41,
-    elevation: 2,
-  },
+  container: {},
   wrapper: {
     overflow: 'hidden',
     borderRadius: 6,
     backgroundColor: '#fff',
     marginVertical: 5,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.2,
+    shadowRadius: 1.41,
+    elevation: 2,
   },
   iconWrapper: {
     width: 40,
@@ -177,21 +185,28 @@ const styles = StyleSheet.create({
   },
 });
 
-const messageStyles = (borderColor: string): ViewStyle => ({
+const wrapperStyles = (theme: ColorScheme): ViewStyle => ({
+  overflow: 'hidden',
+  borderRadius: 6,
+  backgroundColor: theme.backgroundColor,
+  marginVertical: 5,
+});
+
+const messageStyles = (theme: ColorScheme): ViewStyle => ({
   flexDirection: 'row',
   borderLeftWidth: 5,
-  borderColor,
+  borderColor: theme.color,
   minHeight: 60,
   alignItems: 'center',
   paddingVertical: 10,
   paddingRight: 10,
 });
 
-const progressStyles = (backgroundColor: string): ViewStyle => ({
+const progressStyles = (theme: ColorScheme): ViewStyle => ({
   position: 'absolute',
   bottom: 0,
   left: 5,
-  backgroundColor,
+  backgroundColor: theme.color,
   height: 1,
 });
 
